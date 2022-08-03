@@ -98,12 +98,8 @@ async function AmmoPhysics() {
 		// body.setFriction( 4 );
 		world.addRigidBody( body );
 
-		if ( mass > 0 ) {
-
 			meshes.push( mesh );
 			meshMap.set( mesh, body );
-
-		}
 
 
 	}
@@ -146,6 +142,11 @@ async function AmmoPhysics() {
 	}
 
 	//
+
+	function spinToWin(mesh) {
+		const body = meshMap.get( mesh );
+		body.setAngularVelocity( new AmmoLib.btVector3( 0, 5, 0 ) );
+	}
 
 	function setMeshPosition( mesh, position, index = 0 ) {
 
@@ -247,7 +248,8 @@ async function AmmoPhysics() {
 
 	return {
 		addMesh: addMesh,
-		setMeshPosition: setMeshPosition
+		setMeshPosition: setMeshPosition,
+		spinToWin: spinToWin
 		// addCompoundMesh
 	};
 

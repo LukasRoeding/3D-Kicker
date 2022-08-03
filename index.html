@@ -14,13 +14,15 @@
 			import { OrbitControls } from './OrbitControls.js';
 			import { AmmoPhysics } from './AmmoPhysics.js';
 			import Stats from './stats.module.js';
-			import Arena from './arena.js'
+			import Arena from './arena.js';
+			import {createRow} from './PlayerRow.js'
 
 			let camera, scene, renderer, stats;
 			let physics, position;
 
 			let boxes, spheres;
 
+			let players;
 			init();
 
 			async function init() {
@@ -52,6 +54,13 @@
 					physics.addMesh( Arena[index] );
 				}
 
+				players = createRow(4, 2, scene, physics, 'red');
+				let players2 = createRow(3, 5.5, scene, physics, 'red');
+				let players3 = createRow(1, 9, scene, physics, 'red');
+
+				let players4 = createRow(4, -2, scene, physics, 'blue');
+				let players5 = createRow(3, -5.5, scene, physics, 'blue');
+				let players6 = createRow(1, -9, scene, physics, 'blue');
 
 				//
 
@@ -62,7 +71,7 @@
 
 				// Spheres
 
-				const geometrySphere = new THREE.IcosahedronGeometry( 0.075, 3 );
+				const geometrySphere = new THREE.IcosahedronGeometry( 0.2, 3 );
 				spheres = new THREE.InstancedMesh( geometrySphere, material, 100 );
 				spheres.instanceMatrix.setUsage( THREE.DynamicDrawUsage ); // will be updated every frame
 				spheres.castShadow = true;
@@ -105,12 +114,6 @@
 
 				requestAnimationFrame( animate );
 
-				//
-
-				let index = Math.floor( Math.random() * spheres.count );
-
-				/**position.set( 0, Math.random() + 1, 0 );
-				physics.setMeshPosition( spheres, position, index ); **/
 
 				renderer.render( scene, camera );
 
